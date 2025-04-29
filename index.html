@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<style>
+/* ==================Global Reset ===================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1e1e1e;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+
+/*=================== Navbar ====================*/
+.navbar {
+  background: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar .logo {
+  font-size: 20px;
+  color: #ffcb3f;
+  font-weight: bold;
+}
+.navbar nav a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+}
+.navbar nav a:hover {
+  color: #ffcb3f;
+}
+
+/*=============== Hero =====================*/
+.hero {
+  height: 90vh;
+  background: url('your-hero-image.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 48px;
+}
+.hero p {
+  font-size: 20px;
+  color: #ffcb3f;
+  margin-top: 10px;
+}
+
+/* ===============Section titles=============== */
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  color: #ffcb3f;
+  margin: 80px 0 40px;
+}
+
+/* ==============About ================*/
+.about-wrapper {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.about-card {
+  background: #2b2b2b;
+  display: flex;
+  gap: 30px;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+.about-card img {
+  width: 280px;
+  border-radius: 25%;
+}
+.about-info {
+  max-width: 600px;
+}
+.about-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default; /* or pointer if you want it to feel clickable */
+}
+
+.about-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 32px rgba(255, 203, 63, 0.3);
+  background: #333;
+}
+
+.about-card:hover img {
+  filter: brightness(1.05) contrast(1.05);
+  transform: scale(1.02);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+/*======== Cards (Projects/Quizzes) ===========*/
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.card {
+  background: #2b2b2b;
+  padding: 30px;
+  width: 250px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/*========= Contact ==============*/
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.contact-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.contact-form input,
+.contact-form textarea {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+}
+.contact-form button {
+  background: #ffcb3f;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.contact-info {
+  flex: 1;
+}
+
+/* ===============Footer ================*/
+footer {
+  background: #111;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+
+/* quiz and projet */
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffcb3f;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-img {
+  display: block;
+  margin: auto;
+  max-width: 80%;
+  max-height: 80vh;
+  border-radius: 12px;
+}
+.modal-caption {
+  color: #ffcb3f;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 20px;
+}
+.close-btn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: #ffcb3f;
+}
+.card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 32px rgba(255, 203, 63, 0.3);
+}
+
+.card:hover img {
+  filter: brightness(1.1);
+}
+
+.card::after {
+  content: "Click to view";
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #ffcb3f;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+/*/*=================== Responsive Design ===================*/
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar nav a {
+    margin: 10px 0;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+
+  .about-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-card img {
+    width: 80%;
+  }
+
+  .about-info {
+    max-width: 100%;
+  }
+
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+  }
+
+  .modal-img {
+    max-width: 95%;
+    max-height: 70vh;
+  }
+
+  .close-btn {
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+  }
+}
+
+
+</style>
+
+
+
+    
+  <!--========== Navbar ==========-->
+  <header class="navbar">
+    <div class="logo">My Portfolio</div>
+    <nav>
+      <a href="#homepage">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#quizzes">Quizzes</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!--========== Homepage ==========-->
+  <section id="homepage" class="hero">
+    <h1>Welcome to My Portfolio</h1>
+    <p>IT Student | Future Cybersecurity Expert</p>
+  </section>
+
+  <!--========== About ==========-->
+  <section id="about">
+    <div class="about-wrapper">
+      <h2 class="section-title">ABOUT ME</h2>
+      <div class="about-card">
+        <img class="mypics" src="pics/me.jpg" alt="My Photo">
+        <div class="about-info">
+          <h3>Acquisa, Jero Amir C.</h3>
+          <p>
+            I'm an Information Technology student aspiring to become a cybersecurity expert. I am passionate about ethical hacking, system security, and keeping the digital world safe. Outside of academics, I enjoy playing video games, exploring historical topics, and understanding how technology has evolved over time. My goal is to combine my love for cybersecurity and history to better understand and protect the digital landscape of the future.
+          </p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--========== Projects ==========-->
+  <section id="projects">
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="card-container">
+      <div class="card">
+        <img src="pics/project/blog.jpg" alt="Project 1">
+        <p>Vlog</p>
+      </div>
+      <div class="card">
+        <img src="pics/project/Slambook.png" alt="Project 2">
+        <p>SlamBook</p>
+      </div>
+      
+    </div>
+    
+  </section>
+
+  <!--========== Quizzes ==========-->
+  <section id="quizzes">
+    <h2 class="section-title">QUIZZES</h2>
+    <div class="card-container">
+      <div class="card">
+        <img src="pics/quiz/pretest1.jpg" alt="Quiz 1">
+        <p>pretest1</p>
+      </div>
+      <div class="card">
+        <img src="pics/quiz/pretest2.jpg" alt="Quiz 2">
+        <p>pretest2</p>
+      </div>
+      <div class="card">
+        <img src="pics/quiz/pretest3.jpg" alt="Quiz 3">
+        <p>pretest3</p>
+      </div>
+      <div class="card">
+        <img src="pics/quiz/exam.jpg" alt="exam">
+        <p>Exam</p>
+      </div>
+      <div class="card">
+        <img src="pics/quiz/vlog.jpg" alt="Vlog">
+        <p>Vlog</p>
+      </div>
+    </div>
+    
+  </section>
+
+  <!--========== Contact ==========-->
+  <section id="contact">
+    <h2 class="section-title">CONTACT ME</h2>
+    <div class="contact-wrapper">
+      <form class="contact-form">
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <div class="contact-info">
+        <p><strong>Email:</strong> <a href="sc.jeroamir.acquisa@cvsu.edu.ph">sc.jeroamir.acquisa@cvsu.edu.ph</a></p>
+        <p><strong>Mobile No.:</strong> +63 9071664743</p>
+        <p><strong>Facebook:</strong> <a href="https://www.facebook.com/jhon.acquisa/" target="_blank">Jeroamir Acquisa 
+        </a></p>
+      </div>
+    </div>
+  </section>
+
+<!--------------------->
+<div id="modal" class="modal">
+  <span class="close-btn">&times;</span>
+  <img class="modal-img" src="" alt="Enlarged view">
+  <p class="modal-caption"></p>
+</div>
+  <!--========== Footer ==========-->
+  <footer>
+    <p>&copy; 2025 Your Name | All Rights Reserved.</p>
+  </footer>
+
+</body>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+  
+        const target = document.querySelector(this.getAttribute('href'));
+        const headerOffset = 70;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+
+
+
+    const text = "IT Student | Future Cybersecurity Expert";
+let index = 0;
+const typingTarget = document.querySelector(".hero p");
+
+function typeEffect() {
+  if (index < text.length) {
+    typingTarget.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeEffect, 50);
+  } else {
+    setTimeout(() => {
+      typingTarget.textContent = "";
+      index = 0;
+      typeEffect();
+    }, 2000); // Wait 2 seconds before restarting
+  }
+}
+
+typingTarget.textContent = "";
+typeEffect();
+
+
+    
+
+
+
+
+
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("fade-in");
+      observer.unobserve(entry.target);
+    }
+  });
+});
+
+document.querySelectorAll("section").forEach(section => {
+  section.style.opacity = 0;
+  section.style.transition = "opacity 1s ease-out";
+  observer.observe(section);
+});
+
+const fadeInStyle = document.createElement("style");
+fadeInStyle.innerHTML = `
+  .fade-in {
+    opacity: 1 !important;
+  }
+`;
+document.head.appendChild(fadeInStyle);
+
+
+// ============ Image Modal for Projects and Quizzes ============
+const modal = document.getElementById("modal");
+const modalImg = document.querySelector(".modal-img");
+const modalCaption = document.querySelector(".modal-caption");
+const closeBtn = document.querySelector(".close-btn");
+
+// Target all cards
+document.querySelectorAll(".card").forEach(card => {
+  const img = card.querySelector("img");
+  const caption = card.querySelector("p");
+
+  card.addEventListener("click", () => {
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    modalCaption.textContent = caption.textContent;
+  });
+});
+
+// Close modal
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Close on outside click
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+
+  </script>
+</html>
